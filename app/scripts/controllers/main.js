@@ -17,12 +17,12 @@ angular.module('binowPlayingApp')
     });
 
 //inject the twitterService into the controller
-angular.module('binowPlayingApp').controller('TwitterController', function ($scope, $q, twitterService, $sce) {
+angular.module('binowPlayingApp').controller('TwitterController', function ($scope, $q, twitterService, $sce, $timeout) {
 
     $scope.tweets; //array of tweets
 
     $scope.trustSrc = function (src) {
-        var code = src.split('/')
+        var code = src.split('/');
         return $sce.trustAsResourceUrl('http://www.youtube.com/embed/' + code[code.length - 1]);
     }
 
@@ -41,6 +41,7 @@ angular.module('binowPlayingApp').controller('TwitterController', function ($sco
         twitterService.getNowPlayingTweets().then(function (data) {
 
             $scope.tweets = data.statuses;
+
         });
     }
 
@@ -72,10 +73,6 @@ angular.module('binowPlayingApp').controller('TwitterController', function ($sco
             $scope.comment = "";
             $scope.refreshTimeline();
         })
-    };
-
-    $scope.reTweet = function (id) {
-        twitterService.reTweet(id);
     };
 
     $scope.calculateSince = function (datetime) {
