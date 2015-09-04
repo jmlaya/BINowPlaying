@@ -22,6 +22,44 @@
             margin-bottom: 15px;
 
         }
+
+        .tweet > .media h4 + span, .tweet > div:last-child{
+            font-size: 0.8em;
+            color:#A9A9A9;
+        }
+
+        .tweet > .media h4{
+            margin-top: 5px;
+            margin-bottom: 0px;
+
+        }
+
+        .tweet > .media {
+            margin-bottom: 10px;
+        }
+
+        .tweet > div:last-child{
+            padding-top: 5px;
+        }
+        .tweet > div:last-child > div{
+            margin-top: -5px;
+        }
+
+        .tweet > div:last-child .btn{
+            font-size: 1em;
+            color:#A9A9A9;
+            padding:6px 5px;
+        }
+
+        .tweet > div:first-child {
+            float: right;
+        }
+
+        .tweet > div:first-child > a.btn{
+            padding:0px;
+            margin-top: 20px;
+            font-size: 1em;
+        }
     </style>
 </head>
 <body ng-app="binowPlayingApp">
@@ -55,10 +93,10 @@
                 <div class="form-group withlogin">
                     <input type="text" class="form-control comment" ng-model="comment" placeholder="Comment">
                 </div>
-                <button type="submit" class="btn btn-primary withlogin" ng-click="postTweet()">
+                <a type="submit" class="btn btn-primary withlogin" href="https://twitter.com/intent/tweet?url={{video}}&text={{comment}}&hashtags=nowplaying">
                     <i class="fa fa-twitter"></i>
                     Tweet to now playing
-                </button>
+                </a>
                 <button ng-click="connectButton()" id="connectButton" type="button" class="btn btn-primary">
                     Connect Twitter
                 </button>
@@ -79,23 +117,54 @@
                     <div class="row">
                         <div class="col-md-7">
                             <div class="embed-responsive embed-responsive-16by9">
-                                <iframe class="embed-responsive-item" ng-src="{{trustSrc(t.entities.urls[0].expanded_url)}}">
+                                <iframe class="embed-responsive-item"
+                                        ng-src="{{trustSrc(t.entities.urls[0].expanded_url)}}">
                                 </iframe>
                             </div>
 
                         </div>
                         <div class="col-md-5">
-                            <div class="col-xs-2 col-sm-1">
-                                <img ng-src="{{t.user.profile_image_url}}" class="img-circle">
-                            </div>
-                            <div class="col-xs-10 col-sm-11">
-                                <small>{{t.user.name}}</small>
-                                <br>{{t.text}}
+                            <div class="col-md-12 tweet">
+
                                 <div>
-                                    <a ng-click="reTweet(t.id)" class="btn btn-link">
+                                    <a href="https://twitter.com/intent/follow?screen_name={{t.user.screen_name}}" class="btn btn-link btn-lg">
                                         <i class="fa fa-twitter"></i>
-                                        retweet
+                                        follow
                                     </a>
+                                </div>
+
+                                <div class="media">
+                                    <div class="media-left">
+                                        <a href="#">
+                                            <img ng-src="{{t.user.profile_image_url}}" class="img-circle">
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">{{t.user.name}}</h4>
+                                        <span>@{{t.user.screen_name}}</span>
+                                    </div>
+                                </div>
+
+                                {{t.text}}
+
+                                <div>
+                                    <div style="float:right">
+                                        <a href="https://twitter.com/intent/tweet?tweet_id={{t.id_str}}" class="btn btn-link">
+                                            <i class="fa fa-reply"></i>
+                                            Reply
+                                        </a>
+
+                                        <a href="https://twitter.com/intent/retweet?tweet_id={{t.id_str}}" class="btn btn-link">
+                                            <i class="fa fa-retweet"></i>
+                                            Retweet
+                                        </a>
+
+                                        <a href="https://twitter.com/intent/favorite?tweet_id={{t.id_str}}" class="btn btn-link">
+                                            <i class="fa fa-star"></i>
+                                            Favorite
+                                        </a>
+                                    </div>
+                                    {{calculateSince(t.created_at)}}
                                 </div>
                             </div>
                         </div>
@@ -121,6 +190,8 @@
 <script src="bower_components/oauth-js/dist/oauth.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
+
+<script type="text/javascript" async src="//platform.twitter.com/widgets.js"></script>
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
 <script src="scripts/app.js"></script>
