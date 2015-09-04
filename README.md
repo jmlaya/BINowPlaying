@@ -16,4 +16,7 @@ Running `grunt test` will run the unit tests with karma.
 
 ## Technologies used
 
-AngularJS, because is a simple framework for create single page apps. 
+AngularJS, because is a simple framework for create single page apps.
+ 
+You can see it in action (http://jmlaya.com/bi-now-playing "DEMO"), implement on your web server (Nginx o Apache por example) using the dist folder, 
+or you can to clone the repository and build it `git clone https://github.com/jmlaya/BINowPlaying.git`
