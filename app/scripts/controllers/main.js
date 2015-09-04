@@ -11,15 +11,12 @@
 function twitterSearch(response) {
     console.log(response);
 }
-angular.module('binowPlayingApp')
-    .controller('MainCtrl', function ($scope, $resource, $http) {
-
-    });
 
 //inject the twitterService into the controller
 angular.module('binowPlayingApp').controller('TwitterController', function ($scope, $q, twitterService, $sce, $timeout, Utils) {
 
     $scope.tweets; //array of tweets
+    $scope.loading=false;
 
 
     //Necesary to bind "unsecure" url of youtube video using angular
@@ -32,8 +29,9 @@ angular.module('binowPlayingApp').controller('TwitterController', function ($sco
 
     //using the OAuth authorization result get the latest 20 tweets from twitter for the user
     $scope.refreshTimeline = function () {
+        $scope.loading = true;
         twitterService.getNowPlayingTweets().then(function (data) {
-
+            $scope.loading = false;
             $scope.tweets = data.statuses;
 
         });
