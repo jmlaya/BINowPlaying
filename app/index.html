@@ -2,7 +2,7 @@
 <html class="no-js">
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>BI Now Playing - jmlaya</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -47,7 +47,8 @@
                 <div class="form-group withlogin">
                     <input type="text" class="form-control comment" ng-model="comment" placeholder="Comment">
                 </div>
-                <a type="submit" class="btn btn-primary withlogin" href="https://twitter.com/intent/tweet?url={{video}}&text={{comment}}&hashtags=nowplaying">
+                <a type="submit" class="btn btn-primary withlogin"
+                   href="https://twitter.com/intent/tweet?url={{video}}&text={{comment}}&hashtags=nowplaying">
                     <i class="fa fa-twitter"></i>
                     Tweet to now playing
                 </a>
@@ -80,7 +81,8 @@
                             <div class="col-md-12 tweet">
 
                                 <div>
-                                    <a href="https://twitter.com/intent/follow?screen_name={{t.user.screen_name}}" class="btn btn-link btn-lg">
+                                    <a href="https://twitter.com/intent/follow?screen_name={{t.user.screen_name}}"
+                                       class="btn btn-link btn-lg">
                                         <i class="fa fa-twitter"></i>
                                         follow
                                     </a>
@@ -102,17 +104,20 @@
 
                                 <div>
                                     <div style="float:right">
-                                        <a href="https://twitter.com/intent/tweet?in-reply-to={{t.id_str}}" class="btn btn-link">
+                                        <a href="https://twitter.com/intent/tweet?in-reply-to={{t.id_str}}"
+                                           class="btn btn-link">
                                             <i class="fa fa-reply"></i>
                                             Reply
                                         </a>
 
-                                        <a href="https://twitter.com/intent/retweet?tweet_id={{t.id_str}}" class="btn btn-link">
+                                        <a href="https://twitter.com/intent/retweet?tweet_id={{t.id_str}}"
+                                           class="btn btn-link">
                                             <i class="fa fa-retweet"></i>
                                             Retweet
                                         </a>
 
-                                        <a href="https://twitter.com/intent/favorite?tweet_id={{t.id_str}}" class="btn btn-link">
+                                        <a href="https://twitter.com/intent/favorite?tweet_id={{t.id_str}}"
+                                           class="btn btn-link">
                                             <i class="fa fa-star"></i>
                                             Favorite
                                         </a>
@@ -150,6 +155,7 @@
 <script src="scripts/app.js"></script>
 <script src="scripts/controllers/main.js"></script>
 <script src="scripts/services/services.js"></script>
+<script src="scripts/services/utils.js"></script>
 <!-- endbuild -->
 </body>
 </html>
