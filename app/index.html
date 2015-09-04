@@ -1,88 +1,131 @@
 <!doctype html>
 <html class="no-js">
-  <head>
+<head>
     <meta charset="utf-8">
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css"/>
     <!-- bower:css -->
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
-  </head>
-  <body ng-app="binowPlayingApp">
-    <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
 
-    <!-- Add your site or application content here -->
-    <div class="header">
-      <div class="navbar navbar-default" role="navigation">
+    <style>
+        #results .row {
+            margin-top: 15px;
+            margin-bottom: 15px;
+
+        }
+    </style>
+</head>
+<body ng-app="binowPlayingApp">
+
+
+<!-- Add your site or application content here -->
+<div class="header">
+    <div class="navbar navbar-default" role="navigation">
         <div class="container">
-          <div class="navbar-header">
-
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-
-            <a class="navbar-brand" href="#/">binowPlaying</a>
-          </div>
-
-          <div class="collapse navbar-collapse" id="js-navbar-collapse">
-
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Home</a></li>
-              <li><a ng-href="#/">About</a></li>
-              <li><a ng-href="#/">Contact</a></li>
-            </ul>
-          </div>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/">#NowPlaying in your city</a>
+            </div>
         </div>
-      </div>
+    </div>
+</div>
+
+<div class="container" ng-controller="TwitterController">
+
+    <p>
+        This page shows #nowplaying tweets that contain a youtube link in the same city where the user is opening the
+        page. It also allows you to post a #nowplaying tweet with a YouTube link.
+    </p>
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group withlogin">
+                    <input type="text" class="form-control" ng-model="video" placeholder="Video URL">
+                </div>
+                <div class="form-group withlogin">
+                    <input type="text" class="form-control comment" ng-model="comment" placeholder="Comment">
+                </div>
+                <button type="submit" class="btn btn-primary withlogin" ng-click="postTweet()">
+                    <i class="fa fa-twitter"></i>
+                    Tweet to now playing
+                </button>
+                <button ng-click="connectButton()" id="connectButton" type="button" class="btn btn-primary">
+                    Connect Twitter
+                </button>
+                <button ng-click="signOut()" id="signOut" type="button" class="btn btn-primary withlogin">
+                    Sign Out
+                </button>
+            </form>
+
+        </div>
+    </nav>
+
+    <div class="row">
+        <div class="col-xs-12" id="results">
+            <div class="panel panel-default" ng-repeat="t in tweets">
+                <div class="panel-body">
+                    <h4>YouTube Video</h4>
+
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" ng-src="{{trustSrc(t.entities.urls[0].expanded_url)}}">
+                                </iframe>
+                            </div>
+
+                        </div>
+                        <div class="col-md-5">
+                            <div class="col-xs-2 col-sm-1">
+                                <img ng-src="{{t.user.profile_image_url}}" class="img-circle">
+                            </div>
+                            <div class="col-xs-10 col-sm-11">
+                                <small>{{t.user.name}}</small>
+                                <br>{{t.text}}
+                                <div>
+                                    <a ng-click="reTweet(t.id)" class="btn btn-link">
+                                        <i class="fa fa-twitter"></i>
+                                        retweet
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 
-    <div class="container">
-    <div ng-include="'views/main.html'" ng-controller="MainCtrl"></div>
-    </div>
+</div>
 
-    <div class="footer">
-      <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-      </div>
-    </div>
+<!-- build:js(.) scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-touch/angular-touch.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/oauth-js/dist/oauth.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
 
-
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-       }(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>
-
-    <!-- build:js(.) scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-touch/angular-touch.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
-
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <!-- endbuild -->
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/app.js"></script>
+<script src="scripts/controllers/main.js"></script>
+<script src="scripts/services/services.js"></script>
+<!-- endbuild -->
 </body>
 </html>

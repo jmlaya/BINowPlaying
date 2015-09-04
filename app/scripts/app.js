@@ -11,6 +11,9 @@
 angular
   .module('binowPlayingApp', [
     'ngAnimate',
+    'ngResource',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ui.router',
+    'binowPlayingApp.services'
   ]);
