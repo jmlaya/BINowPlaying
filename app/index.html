@@ -15,52 +15,6 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
-
-    <style>
-        #results .row {
-            margin-top: 15px;
-            margin-bottom: 15px;
-
-        }
-
-        .tweet > .media h4 + span, .tweet > div:last-child{
-            font-size: 0.8em;
-            color:#A9A9A9;
-        }
-
-        .tweet > .media h4{
-            margin-top: 5px;
-            margin-bottom: 0px;
-
-        }
-
-        .tweet > .media {
-            margin-bottom: 10px;
-        }
-
-        .tweet > div:last-child{
-            padding-top: 5px;
-        }
-        .tweet > div:last-child > div{
-            margin-top: -5px;
-        }
-
-        .tweet > div:last-child .btn{
-            font-size: 1em;
-            color:#A9A9A9;
-            padding:6px 5px;
-        }
-
-        .tweet > div:first-child {
-            float: right;
-        }
-
-        .tweet > div:first-child > a.btn{
-            padding:0px;
-            margin-top: 20px;
-            font-size: 1em;
-        }
-    </style>
 </head>
 <body ng-app="binowPlayingApp">
 
@@ -149,7 +103,7 @@
 
                                 <div>
                                     <div style="float:right">
-                                        <a href="https://twitter.com/intent/tweet?tweet_id={{t.id_str}}" class="btn btn-link">
+                                        <a href="https://twitter.com/intent/tweet?in-reply-to={{t.id_str}}" class="btn btn-link">
                                             <i class="fa fa-reply"></i>
                                             Reply
                                         </a>
